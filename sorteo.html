@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sorteo en vivo — gira el carrusel y descubrí al ganador.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/sorteo.css">
+    <title>Sorteo</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <!-- Logo -->
+        <div class="logo-wrap">
+            <img class="logo-img" src="assets/logo.webp" alt="Logo">
+            <span class="refresh-icon" id="refreshIcon">🔄</span>
+        </div>
+
+        <!-- Título -->
+        <div class="titulo">
+            <h1>PANEL DE SORTEO</h1>
+            <p>Mucha suerte a todos los participantes</p>
+        </div>
+
+        <!-- Premios -->
+        <div class="premios">
+            <div class="premio">
+                <span class="premio-icon">🌮</span>
+                <span class="premio-texto">16 Tacos surtidos (Pastor, Bistec y Pollo)</span>
+            </div>
+            <div class="premio">
+                <span class="premio-icon">🧀</span>
+                <span class="premio-texto">4 Quesadillas de queso</span>
+            </div>
+            <div class="premio">
+                <span class="premio-icon">🥑</span>
+                <span class="premio-texto">1 Guacamole con totopos</span>
+            </div>
+            <div class="premio">
+                <span class="premio-icon">🥤</span>
+                <span class="premio-texto">4 Refrescos de 600 ml (Coca-Cola, Sprite ó Fanta)</span>
+            </div>
+        </div>
+
+        <!-- Label + Carrusel (marquesina) -->
+        <div class="marquee-section">
+            <span class="marquee-label" id="marqueeLabel">Últimos participantes registrados</span>
+            <div class="carousel-outer" id="carouselOuter">
+                <div class="carousel-center-line" id="centerLine"></div>
+                <div class="carousel-track-wrap" id="track"></div>
+            </div>
+            <div class="winner-display" id="winnerDisplay">
+                <span class="winner-name" id="winnerName">—</span>
+            </div>
+        </div>
+
+        <!-- Contador -->
+        <div class="counter-wrap">
+            <span class="counter-icon">👥</span>
+            <span class="counter-text">Total de participantes:</span>
+            <span class="counter-num" id="counterNum">0</span>
+        </div>
+
+        <!-- Botón -->
+        <button class="btn-sorteo" id="btnSorteo">INICIAR EL SORTEO</button>
+
+    </div>
+
+    <!-- Confetti carrusel -->
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- LIGHTBOX GANADOR -->
+    <div class="lightbox" id="lightboxGanador" role="dialog" aria-modal="true">
+        <div class="lightbox__confetti" id="lbConfetti"></div>
+        <div class="lightbox__contenido">
+            <div class="lightbox__header">
+                <div class="lightbox__trofeo">🏆</div>
+                <div class="lightbox__estrellas">
+                    <span class="estrella">⭐</span>
+                    <span class="estrella">⭐</span>
+                    <span class="estrella">⭐</span>
+                </div>
+            </div>
+            <div class="lightbox__cuerpo">
+                <h2 class="lightbox__titulo">
+                    ¡Felicitaciones,<br>
+                    <span class="lightbox__nombre-accent" id="lbNombre">—</span>!
+                </h2>
+                <p class="lightbox__subtitulo">¡Sos el gran ganador del sorteo! 🎊</p>
+                <div class="lightbox__detalles">
+                    <p class="lightbox__detalle-item" id="lbTelefono">📞 &nbsp;—</p>
+                    <p class="lightbox__detalle-item">🍀 ¡Felicitaciones por el premio!</p>
+                    <p class="lightbox__detalle-item">📢 Nos pondremos en contacto pronto</p>
+                </div>
+                <button class="lightbox__btn" id="lbClose">¡Genial! Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sorteo.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index — Panel de Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#0c0b09',
+                        elevated: '#161412',
+                        card: '#1e1b17',
+                        fg: '#f0ebe3',
+                        muted: '#a09888',
+                        accent: '#d4a843',
+                        border: '#2d2924',
+                        danger: '#bf4545',
+                        success: '#4a9e6e',
+                    },
+                    fontFamily: {
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        body: ['"DM Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #0c0b09;
+            color: #f0ebe3;
+            min-height: 100vh
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161412
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2d2924;
+            border-radius: 3px
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d3830
+        }
+
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 25% 15%, rgba(212, 168, 67, .05) 0%, transparent 55%), radial-gradient(ellipse at 75% 85%, rgba(212, 168, 67, .03) 0%, transparent 50%);
+            animation: glowShift 25s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        @keyframes glowShift {
+            0% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            100% {
+                transform: translate(3%, 2%) scale(1.04)
+            }
+        }
+
+        .tab-btn {
+            position: relative;
+            padding: 13px 30px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 14.5px;
+            color: #a09888;
+            background: 0 0;
+            border: none;
+            cursor: pointer;
+            transition: color .3s;
+            letter-spacing: .02em
+        }
+
+        .tab-btn:hover {
+            color: #f0ebe3
+        }
+
+        .tab-btn.active {
+            color: #d4a843
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 18%;
+            width: 64%;
+            height: 2px;
+            background: #d4a843;
+            border-radius: 1px
+        }
+
+        .lb {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .88);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s ease
+        }
+
+        .lb.active {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .lb-body {
+            transform: scale(.94) translateY(12px);
+            transition: transform .3s ease
+        }
+
+        .lb.active .lb-body {
+            transform: scale(1) translateY(0)
+        }
+
+        .prod-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            background: #1e1b17;
+            border: 1px solid #2d2924;
+            border-radius: 12px;
+            transition: border-color .25s, box-shadow .25s
+        }
+
+        .prod-row:hover {
+            border-color: rgba(212, 168, 67, .35);
+            box-shadow: 0 4px 20px rgba(212, 168, 67, .06)
+        }
+
+        .prod-thumb {
+            width: 62px;
+            height: 62px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+            border: 1px solid #2d2924
+        }
+
+        .prod-thumb:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .4)
+        }
+
+        .prod-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .prod-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 14.5px;
+            color: #f0ebe3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .prod-desc {
+            font-size: 12.5px;
+            color: #a09888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px
+        }
+
+        .prod-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            flex-wrap: wrap
+        }
+
+        .prod-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #d4a843
+        }
+
+        .row-del {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            background: 0 0;
+            color: #5a554d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: all .2s;
+            flex-shrink: 0
+        }
+
+        .row-del:hover {
+            color: #bf4545;
+            border-color: rgba(191, 69, 69, .3);
+            background: rgba(191, 69, 69, .08)
+        }
+
+        .cat-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 15px;
+            background: #1e1b17;
+            border: 1px solid #2d2924;
+            border-radius: 22px;
+            font-size: 13px;
+            color: #a09888;
+            transition: all .2s;
+            white-space: nowrap
+        }
+
+        .cat-chip:hover {
+            border-color: #d4a843;
+            color: #f0ebe3
+        }
+
+        .cat-chip .x {
+            cursor: pointer;
+            opacity: .45;
+            transition: all .2s;
+            font-size: 11px
+        }
+
+        .cat-chip .x:hover {
+            opacity: 1;
+            color: #bf4545
+        }
+
+        .fi {
+            width: 100%;
+            padding: 10px 14px;
+            background: #0c0b09;
+            border: 1px solid #2d2924;
+            border-radius: 8px;
+            color: #f0ebe3;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            transition: border-color .2s, box-shadow .2s;
+            outline: 0
+        }
+
+        .fi:focus {
+            border-color: #d4a843;
+            box-shadow: 0 0 0 3px rgba(212, 168, 67, .1)
+        }
+
+        .fi::placeholder {
+            color: #4a4640
+        }
+
+        .fl {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #a09888;
+            text-transform: uppercase;
+            letter-spacing: .09em;
+            margin-bottom: 6px;
+            font-family: 'Space Grotesk', sans-serif
+        }
+
+        .toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #2d2924;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background .3s;
+            flex-shrink: 0
+        }
+
+        .toggle.on {
+            background: #d4a843
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            background: #f0ebe3;
+            border-radius: 50%;
+            transition: transform .3s
+        }
+
+        .toggle.on::after {
+            transform: translateX(20px)
+        }
+
+        .btn-p {
+            padding: 10px 24px;
+            background: #d4a843;
+            color: #0c0b09;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .btn-p:hover {
+            background: #e6bc5a;
+            transform: translateY(-1px)
+        }
+
+        .btn-p:active {
+            transform: translateY(0)
+        }
+
+        .btn-g {
+            padding: 10px 24px;
+            background: 0 0;
+            color: #a09888;
+            border: 1px solid #2d2924;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .btn-g:hover {
+            border-color: #a09888;
+            color: #f0ebe3
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid #2d2924;
+            background: 0 0;
+            color: #a09888;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500
+        }
+
+        .btn-sm:hover {
+            border-color: #d4a843;
+            color: #d4a843
+        }
+
+        .sec {
+            background: #161412;
+            border: 1px solid #2d2924;
+            border-radius: 14px;
+            padding: 26px
+        }
+
+        .sec-t {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            color: #f0ebe3;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .sec-t i {
+            color: #d4a843;
+            font-size: 15px
+        }
+
+        .img-prev {
+            width: 100%;
+            height: 150px;
+            background: #0c0b09;
+            border: 2px dashed #2d2924;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a4640;
+            font-size: 13px;
+            overflow: hidden;
+            transition: border-color .3s
+        }
+
+        .img-prev.has {
+            border-style: solid;
+            border-color: #2d2924
+        }
+
+        .img-prev img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .view-img {
+            max-width: 86vw;
+            max-height: 78vh;
+            border-radius: 12px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, .55)
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 13px 22px;
+            background: #1e1b17;
+            border: 1px solid #2d2924;
+            border-radius: 10px;
+            color: #f0ebe3;
+            font-size: 14px;
+            z-index: 200;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all .35s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .toast.ok {
+            border-color: rgba(74, 158, 110, .5)
+        }
+
+        .toast.ok i {
+            color: #4a9e6e
+        }
+
+        .toast.err {
+            border-color: rgba(191, 69, 69, .5)
+        }
+
+        .toast.err i {
+            color: #bf4545
+        }
+
+        .tab-c {
+            display: none;
+            animation: tabIn .35s ease
+        }
+
+        .tab-c.active {
+            display: block
+        }
+
+        @keyframes tabIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp .3s ease
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 5px
+        }
+
+        .icon-opt {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0c0b09;
+            border: 1px solid #2d2924;
+            border-radius: 7px;
+            color: #a09888;
+            cursor: pointer;
+            transition: all .2s;
+            font-size: 14px
+        }
+
+        .icon-opt:hover {
+            border-color: #d4a843;
+            color: #d4a843
+        }
+
+        .icon-opt.sel {
+            border-color: #d4a843;
+            color: #d4a843;
+            background: rgba(212, 168, 67, .1)
+        }
+
+        .img-drop {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            max-height: 220px;
+            background: #0c0b09;
+            border: 2px dashed #2d2924;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color .3s, background .3s;
+            overflow: hidden
+        }
+
+        .img-drop:hover {
+            border-color: #d4a843;
+            background: rgba(212, 168, 67, .03)
+        }
+
+        .img-drop.has-image {
+            border-style: solid;
+            border-color: #2d2924
+        }
+
+        .img-drop img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px
+        }
+
+        .img-drop-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity .25s;
+            border-radius: 10px
+        }
+
+        .img-drop.has-image:hover .img-drop-overlay {
+            opacity: 1
+        }
+
+        .img-drop input[type="file"] {
+            display: none
+        }
+
+        /* Encabezado de categoría en la lista */
+        .cat-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0 10px;
+            border-bottom: 1px solid #2d2924;
+            margin-bottom: 12px
+        }
+
+        .cat-heading-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(212, 168, 67, .1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4a843;
+            font-size: 13px;
+            flex-shrink: 0
+        }
+
+        .cat-heading-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: #f0ebe3
+        }
+
+        .cat-heading-count {
+            font-size: 11px;
+            color: #a09888;
+            background: #0c0b09;
+            padding: 2px 9px;
+            border-radius: 10px;
+            font-family: 'Space Grotesk', sans-serif
+        }
+
+        /* Sección promociones destacada */
+        .promo-section {
+            background: linear-gradient(135deg, rgba(212, 168, 67, .06) 0%, rgba(212, 168, 67, .02) 100%);
+            border-color: rgba(212, 168, 67, .25)
+        }
+
+        .promo-section .cat-heading-icon {
+            background: rgba(212, 168, 67, .2)
+        }
+
+        .promo-section .cat-heading-label {
+            color: #d4a843
+        }
+
+        .cat-block {
+            margin-bottom: 24px
+        }
+
+        .cat-block:last-child {
+            margin-bottom: 0
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important
+            }
+        }
+
+        @media(max-width:640px) {
+            .icon-grid {
+                grid-template-columns: repeat(6, 1fr)
+            }
+
+            .prod-row {
+                gap: 10px;
+                padding: 10px
+            }
+
+            .prod-thumb {
+                width: 50px;
+                height: 50px
+            }
+
+            .prod-name {
+                font-size: 13px
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body">
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-20">
+
+        <header class="mb-8 flex items-end gap-4">
+            <h1 class="font-display font-bold text-3xl tracking-tight text-fg">Index</h1>
+            <span class="text-muted text-sm mb-1">Panel de administracion</span>
+        </header>
+
+        <nav class="flex border-b border-border mb-8" role="tablist" aria-label="Secciones principales">
+            <button class="tab-btn active" data-tab="menu" role="tab" aria-selected="true" aria-controls="tab-menu">
+                <i class="fa-solid fa-utensils mr-2 text-xs"></i>Menu Digital
+            </button>
+            <button class="tab-btn" data-tab="sorteo" role="tab" aria-selected="false" aria-controls="tab-sorteo">
+                <i class="fa-solid fa-gift mr-2 text-xs"></i>Sorteo
+            </button>
+        </nav>
+
+        <!-- ==================== TAB: MENU ==================== -->
+        <div id="tab-menu" class="tab-c active" role="tabpanel">
+            <section class="sec mb-6">
+                <div class="sec-t"><i class="fa-solid fa-tags"></i> Categorias</div>
+                <div id="cats-wrap" class="flex flex-wrap gap-2 mb-3"></div>
+                <button class="btn-sm" id="btn-add-cat"><i class="fa-solid fa-plus mr-1"></i> Agregar categoria</button>
+            </section>
+
+            <section>
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="sec-t mb-0"><i class="fa-solid fa-plate-wheat"></i> Productos</div>
+                    <button class="btn-p" id="btn-add-prod"><i class="fa-solid fa-plus mr-1"></i> Crear
+                        Producto</button>
+                </div>
+                <div id="prods-list"></div>
+                <div id="empty-prods" class="hidden text-center py-16 text-muted">
+                    <i class="fa-solid fa-bowl-food text-4xl mb-4 block opacity-30"></i>
+                    <p class="text-sm">Aun no hay productos. Crea el primero.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== TAB: SORTEO ==================== -->
+        <div id="tab-sorteo" class="tab-c" role="tabpanel">
+            <div class="grid gap-6">
+                <section class="sec">
+                    <div class="sec-t"><i class="fa-solid fa-images"></i> Imagenes</div>
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="fl">Imagen de sorteo</label>
+                            <div class="img-drop" id="drop-sorteo"
+                                onclick="document.getElementById('file-sorteo').click()">
+                                <input type="file" id="file-sorteo" accept="image/*">
+                                <div class="drop-placeholder text-center px-4">
+                                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-muted mb-2 block"></i>
+                                    <span class="text-muted text-sm">Toca para seleccionar</span>
+                                </div>
+                                <img id="prev-sorteo" src="" alt="" style="display:none">
+                                <div class="img-drop-overlay">
+                                    <span class="text-fg text-sm font-display font-semibold"><i
+                                            class="fa-solid fa-arrow-up-from-bracket mr-2"></i>Cambiar imagen</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="fl">Imagen de menu decorativa</label>
+                            <div class="img-drop" id="drop-menu" onclick="document.getElementById('file-menu').click()">
+                                <input type="file" id="file-menu" accept="image/*">
+                                <div class="drop-placeholder text-center px-4">
+                                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-muted mb-2 block"></i>
+                                    <span class="text-muted text-sm">Toca para seleccionar</span>
+                                </div>
+                                <img id="prev-menu" src="" alt="" style="display:none">
+                                <div class="img-drop-overlay">
+                                    <span class="text-fg text-sm font-display font-semibold"><i
+                                            class="fa-solid fa-arrow-up-from-bracket mr-2"></i>Cambiar imagen</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sec">
+                    <div class="sec-t"><i class="fa-solid fa-align-left"></i> Textos</div>
+                    <div class="mb-5">
+                        <label class="fl">Titulo del formulario</label>
+                        <input class="fi" id="s-title" placeholder="Participa y gana premios increibles">
+                    </div>
+                    <div>
+                        <label class="fl">Premios</label>
+                        <div id="prizes-list" class="flex flex-col gap-3 mb-3"></div>
+                        <button class="btn-sm" id="btn-add-prize"><i class="fa-solid fa-plus mr-1"></i> Agregar
+                            premio</button>
+                    </div>
+                </section>
+
+                <section class="sec">
+                    <div class="sec-t"><i class="fa-solid fa-clock"></i> Temporizador</div>
+                    <div class="max-w-xs">
+                        <label class="fl">Fecha de fin del sorteo</label>
+                        <input class="fi" id="s-enddate" type="datetime-local">
+                    </div>
+                </section>
+
+                <div class="flex justify-end pt-2">
+                    <button class="btn-p text-base px-8 py-3" id="btn-save-sorteo">
+                        <i class="fa-solid fa-floppy-disk mr-2"></i>Guardar Configuracion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX: VER IMAGEN -->
+    <div id="lb-view" class="lb" role="dialog" aria-modal="true" aria-label="Vista de imagen">
+        <div class="lb-body text-center relative">
+            <button onclick="closeLB('lb-view')"
+                class="absolute -top-12 right-0 text-muted hover:text-fg text-2xl transition-colors"
+                aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            <img id="view-img" class="view-img" src="" alt="Imagen del producto">
+            <div id="view-info" class="mt-4"></div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX: CREAR CATEGORIA -->
+    <div id="lb-cat" class="lb" role="dialog" aria-modal="true" aria-label="Crear categoria">
+        <div class="lb-body bg-elevated border border-border rounded-2xl p-7 w-full max-w-md mx-4">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-display font-bold text-lg text-fg">Nueva Categoria</h2>
+                <button onclick="closeLB('lb-cat')" class="text-muted hover:text-fg text-lg transition-colors"
+                    aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="mb-5">
+                <label class="fl">Nombre</label>
+                <input class="fi" id="cat-name" placeholder="Ej: Bebidas">
+            </div>
+            <div class="mb-6">
+                <label class="fl">Icono</label>
+                <div class="icon-grid" id="icon-grid"></div>
+                <input type="hidden" id="cat-icon" value="">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button class="btn-g" onclick="closeLB('lb-cat')">Cancelar</button>
+                <button class="btn-p" id="btn-save-cat">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX: CREAR PRODUCTO -->
+    <div id="lb-prod" class="lb" role="dialog" aria-modal="true" aria-label="Crear producto">
+        <div
+            class="lb-body bg-elevated border border-border rounded-2xl p-7 w-full max-w-lg mx-4 max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-display font-bold text-lg text-fg">Nuevo Producto</h2>
+                <button onclick="closeLB('lb-prod')" class="text-muted hover:text-fg text-lg transition-colors"
+                    aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="grid gap-5">
+                <div>
+                    <label class="fl">Nombre</label>
+                    <input class="fi" id="prod-name" placeholder="Ej: Mojito Clasico">
+                </div>
+                <div>
+                    <label class="fl">Descripcion</label>
+                    <textarea class="fi" id="prod-desc" rows="2" placeholder="Ingredientes o detalles del plato"
+                        style="resize:vertical"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="fl">Precio</label>
+                        <input class="fi" id="prod-price" type="number" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="fl">Categoria</label>
+                        <select class="fi" id="prod-cat">
+                            <option value="">Sin categoria</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="fl">Imagen (ruta)</label>
+                    <input class="fi mb-3" id="prod-img" placeholder="https://ejemplo.com/plato.jpg"
+                        oninput="previewProdImg()">
+                    <div class="img-prev" id="prod-img-prev"><span><i class="fa-solid fa-image mr-2"></i>Vista
+                            previa</span></div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="fl mb-0">Es promocion</label>
+                    <div class="toggle" id="prod-promo" tabindex="0" role="switch" aria-checked="false"
+                        onclick="this.classList.toggle('on');this.setAttribute('aria-checked',this.classList.contains('on'))"
+                        onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();this.click()}"></div>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 mt-7">
+                <button class="btn-g" onclick="closeLB('lb-prod')">Cancelar</button>
+                <button class="btn-p" id="btn-save-prod">Guardar Producto</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"><i></i><span></span></div>
+
+    <script>
+        const ICONS = [
+            'fa-wine-glass', 'fa-utensils', 'fa-cake-candles', 'fa-pizza-slice',
+            'fa-burger', 'fa-mug-hot', 'fa-beer-mug-empty', 'fa-fish',
+            'fa-drumstick-bite', 'fa-ice-cream', 'fa-cookie', 'fa-lemon',
+            'fa-pepper-hot', 'fa-bowl-food', 'fa-plate-wheat', 'fa-martini-glass-citrus'
+        ];
+
+        let categories = [
+            { id: 1, name: 'Bebidas', icon: 'fa-wine-glass' },
+            { id: 2, name: 'Platos Principales', icon: 'fa-utensils' },
+            { id: 3, name: 'Postres', icon: 'fa-cake-candles' }
+        ];
+
+        let products = [
+            { id: 1, name: 'Mojito Clasico', desc: 'Ron blanco, limon, menta fresca, azucar y soda', price: 8.50, img: 'https://picsum.photos/seed/mojito22/400/300.jpg', catId: 1, promo: true },
+            { id: 2, name: 'Lomo Saltado', desc: 'Lomo de res salteado con cebolla, tomate y papas fritas', price: 18.90, img: 'https://picsum.photos/seed/lomo44/400/300.jpg', catId: 2, promo: false },
+            { id: 3, name: 'Tiramisu', desc: 'Capas de bizcocho empapado en cafe, crema mascarpone y cacao', price: 7.00, img: 'https://picsum.photos/seed/tiramisu7/400/300.jpg', catId: 3, promo: false },
+            { id: 4, name: 'Pisco Sour', desc: 'Pisco, limon de pica, jarabe de goma y clara de huevo', price: 9.50, img: 'https://picsum.photos/seed/pisco11/400/300.jpg', catId: 1, promo: true },
+            { id: 5, name: 'Ceviche Mixto', desc: 'Pescado y mariscos frescos con limon, cebolla morada y aji', price: 16.00, img: 'https://picsum.photos/seed/ceviche9/400/300.jpg', catId: 2, promo: false },
+            { id: 6, name: 'Tres Leches', desc: 'Bizcocho humedo banado en mezcla de tres leches', price: 6.50, img: 'https://picsum.photos/seed/tresleches3/400/300.jpg', catId: 3, promo: false }
+        ];
+
+        let prizes = ['Primera cena gratis para dos personas', 'Copa de vino artesanal'];
+        let nextCatId = 4;
+        let nextProdId = 7;
+        let selectedIcon = '';
+        let sorteoImages = { sorteo: null, menu: null };
+
+        function $(s) { return document.querySelector(s) }
+        function $$(s) { return document.querySelectorAll(s) }
+        function getCat(id) { return categories.find(c => c.id === id) }
+        function fmtPrice(p) { return '$' + Number(p).toFixed(2) }
+
+        function toast(msg, type = 'ok') {
+            const t = $('#toast'); t.className = 'toast ' + type;
+            t.querySelector('i').className = type === 'ok' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation';
+            t.querySelector('span').textContent = msg; t.classList.add('show');
+            clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2800);
+        }
+
+        function openLB(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden' }
+        function closeLB(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = '' }
+
+        $$('.lb').forEach(lb => { lb.addEventListener('click', e => { if (e.target === lb) closeLB(lb.id) }) });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.lb.active').forEach(lb => closeLB(lb.id)) });
+
+        /* ===================== PESTAÑAS ===================== */
+        $$('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                $$('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false') });
+                btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+                $$('.tab-c').forEach(t => t.classList.remove('active'));
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        /* ===================== CATEGORÍAS ===================== */
+        function renderCats() {
+            const w = $('#cats-wrap'); w.innerHTML = '';
+            categories.forEach(c => {
+                const chip = document.createElement('div'); chip.className = 'cat-chip fade-up';
+                chip.innerHTML = `<i class="fa-solid ${c.icon}" style="color:#d4a843;font-size:12px"></i><span>${c.name}</span><span class="x" data-id="${c.id}" title="Eliminar"><i class="fa-solid fa-xmark"></i></span>`;
+                chip.querySelector('.x').addEventListener('click', e => {
+                    e.stopPropagation(); const id = Number(e.currentTarget.dataset.id);
+                    if (products.some(p => p.catId === id)) { toast('No se puede eliminar: hay productos asociados', 'err'); return }
+                    categories = categories.filter(c => c.id !== id); renderCats(); toast('Categoria eliminada');
+                });
+                w.appendChild(chip);
+            });
+        }
+
+        function renderIconGrid() {
+            const g = $('#icon-grid'); g.innerHTML = '';
+            ICONS.forEach(ic => {
+                const d = document.createElement('div'); d.className = 'icon-opt' + (selectedIcon === ic ? ' sel' : '');
+                d.innerHTML = `<i class="fa-solid ${ic}"></i>`;
+                d.addEventListener('click', () => { selectedIcon = ic; $('#cat-icon').value = ic; $$('.icon-opt').forEach(o => o.classList.remove('sel')); d.classList.add('sel') });
+                g.appendChild(d);
+            });
+        }
+
+        $('#btn-add-cat').addEventListener('click', () => {
+            $('#cat-name').value = ''; selectedIcon = ''; $('#cat-icon').value = ''; renderIconGrid(); openLB('lb-cat');
+            setTimeout(() => $('#cat-name').focus(), 300);
+        });
+
+        $('#btn-save-cat').addEventListener('click', () => {
+            const name = $('#cat-name').value.trim();
+            if (!name) { toast('Ingresa un nombre para la categoria', 'err'); return }
+            if (!selectedIcon) { toast('Selecciona un icono', 'err'); return }
+            categories.push({ id: nextCatId++, name, icon: selectedIcon }); renderCats(); closeLB('lb-cat'); toast('Categoria creada');
+        });
+
+        /* ===================== PRODUCTOS AGRUPADOS POR CATEGORÍA ===================== */
+
+        /* Crea una fila de producto */
+        function createProdRow(p) {
+            const row = document.createElement('div'); row.className = 'prod-row fade-up';
+            row.innerHTML = `
+        <img class="prod-thumb" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://picsum.photos/seed/fb${p.id}/100/100.jpg'">
+        <div class="prod-info">
+            <p class="prod-name">${p.name}</p>
+            <p class="prod-desc">${p.desc || 'Sin descripcion'}</p>
+            <div class="prod-meta">
+                <span class="prod-price">${fmtPrice(p.price)}</span>
+                ${p.promo ? '<span style="font-size:9.5px;font-weight:700;color:#0c0b09;background:#d4a843;padding:2px 8px;border-radius:4px;font-family:Space Grotesk,sans-serif;text-transform:uppercase;letter-spacing:.06em">Promo</span>' : ''}
+            </div>
+        </div>
+        <button class="row-del" title="Eliminar" aria-label="Eliminar ${p.name}"><i class="fa-solid fa-trash-can"></i></button>
+    `;
+            /* Clic en miniatura → lightbox */
+            row.querySelector('.prod-thumb').addEventListener('click', () => {
+                $('#view-img').src = p.img; $('#view-img').alt = p.name;
+                $('#view-info').innerHTML = `
+            <p class="font-display font-bold text-fg text-lg">${p.name}</p>
+            <p class="text-muted text-sm mt-1 max-w-md mx-auto">${p.desc || ''}</p>
+            <p class="text-accent font-display font-bold text-xl mt-2">${fmtPrice(p.price)}</p>
+        `;
+                openLB('lb-view');
+            });
+            /* Eliminar */
+            row.querySelector('.row-del').addEventListener('click', () => {
+                products = products.filter(pr => pr.id !== p.id); renderProducts(); toast('Producto eliminado');
+            });
+            return row;
+        }
+
+        /* Crea un bloque de categoría con encabezado y sus productos */
+        function createCatBlock(cat, prods, isPromo) {
+            const block = document.createElement('div'); block.className = 'cat-block';
+            const secClass = isPromo ? 'sec promo-section' : 'sec';
+
+            /* Encabezado de categoría */
+            const heading = document.createElement('div'); heading.className = 'cat-heading';
+            heading.innerHTML = `
+        <div class="cat-heading-icon"><i class="fa-solid ${isPromo ? 'fa-fire' : cat.icon}"></i></div>
+        <span class="cat-heading-label">${isPromo ? 'Promociones' : cat.name}</span>
+        <span class="cat-heading-count">${prods.length} ${prods.length === 1 ? 'producto' : 'productos'}</span>
+    `;
+
+            /* Lista de productos */
+            const list = document.createElement('div'); list.className = 'flex flex-col gap-3';
+            prods.forEach(p => list.appendChild(createProdRow(p)));
+
+            /* Mensaje vacío */
+            if (prods.length === 0) {
+                const empty = document.createElement('p'); empty.className = 'text-muted text-sm text-center py-6 opacity-60';
+                empty.textContent = isPromo ? 'No hay productos en promocion' : 'Sin productos en esta categoria';
+                list.appendChild(empty);
+            }
+
+            block.appendChild(heading);
+            block.appendChild(list);
+
+            /* Envolver en sección con fondo */
+            const wrapper = document.createElement('div'); wrapper.className = secClass;
+            wrapper.appendChild(block);
+            return wrapper;
+        }
+
+        function renderProducts() {
+            const container = $('#prods-list'), empty = $('#empty-prods');
+            container.innerHTML = '';
+
+            if (products.length === 0) { empty.classList.remove('hidden'); return }
+            empty.classList.add('hidden');
+
+            const promoProds = products.filter(p => p.promo);
+
+            /* 1) Sección Promociones (hardcodeada, siempre visible) */
+            container.appendChild(createCatBlock(null, promoProds, true));
+
+            /* 2) Secciones por cada categoría */
+            categories.forEach(cat => {
+                const catProds = products.filter(p => p.catId === cat.id);
+                container.appendChild(createCatBlock(cat, catProds, false));
+            });
+
+            /* 3) Productos sin categoría */
+            const uncatProds = products.filter(p => !p.catId);
+            if (uncatProds.length > 0) {
+                const fakeCat = { name: 'Sin categoria', icon: 'fa-ellipsis' };
+                container.appendChild(createCatBlock(fakeCat, uncatProds, false));
+            }
+        }
+
+        /* Preview imagen en formulario de producto */
+        function previewProdImg() {
+            const url = $('#prod-img').value.trim(), prev = $('#prod-img-prev');
+            if (url) {
+                const img = new Image();
+                img.onload = () => { prev.innerHTML = ''; prev.appendChild(img); prev.classList.add('has') };
+                img.onerror = () => { prev.innerHTML = '<span><i class="fa-solid fa-triangle-exclamation mr-2"></i>No se pudo cargar</span>'; prev.classList.remove('has') };
+                img.src = url;
+            } else { prev.innerHTML = '<span><i class="fa-solid fa-image mr-2"></i>Vista previa</span>'; prev.classList.remove('has') }
+        }
+
+        $('#btn-add-prod').addEventListener('click', () => {
+            $('#prod-name').value = ''; $('#prod-desc').value = ''; $('#prod-price').value = ''; $('#prod-img').value = '';
+            $('#prod-img-prev').innerHTML = '<span><i class="fa-solid fa-image mr-2"></i>Vista previa</span>'; $('#prod-img-prev').classList.remove('has');
+            const t = $('#prod-promo'); t.classList.remove('on'); t.setAttribute('aria-checked', 'false');
+            const sel = $('#prod-cat'); sel.innerHTML = '<option value="">Sin categoria</option>';
+            categories.forEach(c => { const o = document.createElement('option'); o.value = c.id; o.textContent = c.name; sel.appendChild(o) });
+            openLB('lb-prod'); setTimeout(() => $('#prod-name').focus(), 300);
+        });
+
+        $('#btn-save-prod').addEventListener('click', () => {
+            const name = $('#prod-name').value.trim(), desc = $('#prod-desc').value.trim(), price = parseFloat($('#prod-price').value), img = $('#prod-img').value.trim(), catId = parseInt($('#prod-cat').value) || 0, promo = $('#prod-promo').classList.contains('on');
+            if (!name) { toast('Ingresa el nombre del producto', 'err'); return }
+            if (isNaN(price) || price < 0) { toast('Ingresa un precio valido', 'err'); return }
+            if (!img) { toast('Ingresa la ruta de la imagen', 'err'); return }
+            products.push({ id: nextProdId++, name, desc, price, img, catId, promo }); renderProducts(); closeLB('lb-prod'); toast('Producto creado');
+        });
+
+        /* ===================== SORTEO: IMÁGENES ===================== */
+        function setupImageDrop(fileId, previewId, dropId, key) {
+            const fileInput = document.getElementById(fileId), preview = document.getElementById(previewId), drop = document.getElementById(dropId);
+            fileInput.addEventListener('change', () => {
+                const file = fileInput.files[0]; if (!file) return;
+                if (!file.type.startsWith('image/')) { toast('Selecciona un archivo de imagen valido', 'err'); fileInput.value = ''; return }
+                const reader = new FileReader();
+                reader.onload = e => { sorteoImages[key] = e.target.result; preview.src = e.target.result; preview.style.display = 'block'; drop.classList.add('has-image'); drop.querySelector('.drop-placeholder').style.display = 'none' };
+                reader.readAsDataURL(file);
+            });
+        }
+        setupImageDrop('file-sorteo', 'prev-sorteo', 'drop-sorteo', 'sorteo');
+        setupImageDrop('file-menu', 'prev-menu', 'drop-menu', 'menu');
+
+        /* ===================== SORTEO: PREMIOS ===================== */
+        function renderPrizes() {
+            const list = $('#prizes-list'); list.innerHTML = '';
+            prizes.forEach((p, i) => {
+                const row = document.createElement('div'); row.className = 'prize-item fade-up';
+                row.style.cssText = 'display:flex;gap:10px;align-items:center';
+                row.innerHTML = `
+            <span class="text-accent font-display font-bold text-sm w-6 text-right flex-shrink-0">${i + 1}.</span>
+            <input class="fi flex-1" value="${p.replace(/"/g, '&quot;')}" placeholder="Descripcion del premio" data-idx="${i}">
+            <button class="flex-shrink-0 w-8 h-8 rounded-lg border border-border text-danger hover:bg-danger/10 transition-colors flex items-center justify-center text-xs" data-del="${i}" title="Eliminar premio" aria-label="Eliminar premio ${i + 1}"><i class="fa-solid fa-xmark"></i></button>
+        `;
+                row.querySelector('input').addEventListener('input', e => { prizes[e.target.dataset.idx] = e.target.value });
+                row.querySelector('[data-del]').addEventListener('click', e => { prizes.splice(Number(e.currentTarget.dataset.del), 1); renderPrizes() });
+                list.appendChild(row);
+            });
+        }
+
+        $('#btn-add-prize').addEventListener('click', () => {
+            prizes.push(''); renderPrizes();
+            setTimeout(() => { const inputs = $('#prizes-list').querySelectorAll('input'); if (inputs.length) inputs[inputs.length - 1].focus() }, 50);
+        });
+
+        /* ===================== SORTEO: GUARDAR ===================== */
+        $('#btn-save-sorteo').addEventListener('click', () => {
+            const data = {
+                images: { sorteo: sorteoImages.sorteo, menu: sorteoImages.menu },
+                texts: { title: $('#s-title').value.trim(), prizes: prizes.filter(p => p.trim()) },
+                timer: { endDate: $('#s-enddate').value }
+            };
+            if (!data.texts.title) { toast('Ingresa el titulo del formulario', 'err'); return }
+            if (data.texts.prizes.length === 0) { toast('Agrega al menos un premio', 'err'); return }
+            if (!data.timer.endDate) { toast('Selecciona la fecha de fin del sorteo', 'err'); return }
+            console.log('Configuracion del sorteo guardada:', data);
+            toast('Configuracion del sorteo guardada correctamente');
+        });
+
+        /* ===================== INICIALIZACIÓN ===================== */
+        renderCats();
+        renderProducts();
+        renderPrizes();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes de los sorteos</title>
+    <style>
+        /* ===== Reset ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ===== Única variable permitida: fuente del navegador ===== */
+        :root {
+            --font-stack: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: #f5f7fa;
+            background-image: linear-gradient(180deg, #f5f7fa 0%, #e9eef5 100%);
+            background-attachment: fixed;
+            color: #1a2332;
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            background-color: rgba(255, 255, 255, 0.92);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 1px 0 rgba(20, 30, 50, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header::before {
+            content: "";
+            display: block;
+            height: 3px;
+            background-image: linear-gradient(90deg, #25D366 0%, #128C7E 100%);
+        }
+
+        .header__container {
+            padding: 0.85rem 1rem 1rem;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .header__title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a2332;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #25D366;
+            box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.18);
+            animation: pulse 2s ease infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.18);
+            }
+
+            50% {
+                box-shadow: 0 0 0 7px rgba(37, 211, 102, 0.06);
+            }
+        }
+
+        /* ===== Filter ===== */
+        .filter__wrap {
+            position: relative;
+        }
+
+        .filter__icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            color: #8b97a7;
+            pointer-events: none;
+        }
+
+        .filter__input {
+            width: 100%;
+            font-family: var(--font-stack);
+            font-size: 0.9rem;
+            padding: 0.7rem 0.9rem 0.7rem 2.4rem;
+            border: 1px solid #e4e8ed;
+            border-radius: 0.6rem;
+            background-color: #f5f7fa;
+            color: #1a2332;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .filter__input::placeholder {
+            color: #aab4c2;
+        }
+
+        .filter__input:focus {
+            border-color: #25D366;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.15);
+        }
+
+        /* ===== Main ===== */
+        .main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 1rem 1rem 3rem;
+        }
+
+        /* ===== Message ===== */
+        .message {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 12px rgba(20, 30, 50, 0.05);
+            animation: fade_in 0.4s ease;
+        }
+
+        .message__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            gap: 0.5rem;
+        }
+
+        .message__label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a2332;
+        }
+
+        .message__count {
+            font-size: 0.8rem;
+            color: #8b97a7;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .message__textarea {
+            width: 100%;
+            min-height: 96px;
+            font-family: var(--font-stack);
+            font-size: 0.9rem;
+            padding: 0.75rem;
+            border: 1px solid #e4e8ed;
+            border-radius: 0.6rem;
+            resize: vertical;
+            color: #1a2332;
+            background-color: #fafbfc;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .message__textarea::placeholder {
+            color: #aab4c2;
+        }
+
+        .message__textarea:focus {
+            border-color: #25D366;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.12);
+        }
+
+        .message__hint {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #8b97a7;
+        }
+
+        .message__textarea_shake {
+            animation: shake 0.35s ease;
+            border-color: #e74c3c !important;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-4px);
+            }
+
+            40% {
+                transform: translateX(4px);
+            }
+
+            60% {
+                transform: translateX(-3px);
+            }
+
+            80% {
+                transform: translateX(3px);
+            }
+        }
+
+        /* ===== Stats ===== */
+        .stats {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats__item {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 0.6rem;
+            padding: 0.7rem 0.8rem;
+            box-shadow: 0 2px 8px rgba(20, 30, 50, 0.04);
+            animation: fade_in 0.4s ease;
+        }
+
+        .stats__value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a2332;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.2;
+        }
+
+        .stats__label {
+            font-size: 0.8rem;
+            color: #8b97a7;
+            margin-top: 0.15rem;
+        }
+
+        /* ===== Sorteo ===== */
+        .sorteo {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 12px rgba(20, 30, 50, 0.05);
+            animation: fade_in 0.4s ease;
+            overflow: hidden;
+        }
+
+        .sorteo__head {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.25rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .sorteo__badge {
+            flex-shrink: 0;
+            width: 4px;
+            height: 18px;
+            background-color: #25D366;
+            border-radius: 2px;
+        }
+
+        .sorteo__title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a2332;
+            letter-spacing: -0.005em;
+            text-align: left;
+        }
+
+        .sorteo__list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Client ===== */
+        .client {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 0.4rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .client+.client {
+            border-top: 1px solid #f0f2f5;
+        }
+
+        .client:hover {
+            background-color: #fafbfc;
+        }
+
+        .client_hidden {
+            display: none;
+        }
+
+        .client_sent {
+            background-color: rgba(37, 211, 102, 0.04);
+        }
+
+        .client_sent .client__phone {
+            color: #2e7d4f;
+        }
+
+        .client__info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .client__name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1a2332;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .client__phone {
+            font-size: 0.8rem;
+            color: #8b97a7;
+            font-variant-numeric: tabular-nums;
+            transition: color 0.2s ease;
+        }
+
+        .client__button {
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.5rem 0.9rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: #25D366;
+            color: #ffffff;
+            cursor: pointer;
+            letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .client__button:hover {
+            background-color: #1eb858;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.25);
+        }
+
+        .client__button:active {
+            transform: translateY(0);
+        }
+
+        .client__button_sent {
+            background-color: #e8f5ec;
+            color: #2e7d4f;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .client__button_sent:hover {
+            transform: none;
+            background-color: #e8f5ec;
+            box-shadow: none;
+        }
+
+        /* ===== Empty ===== */
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.85rem;
+            color: #8b97a7;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty_show {
+            display: block;
+            animation: fade_in 0.3s ease;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fade_in {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Responsive (mobile first) ===== */
+        @media (min-width: 600px) {
+
+            .header__container,
+            .main {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .message__textarea {
+                min-height: 110px;
+            }
+
+            .sorteo,
+            .message,
+            .stats__item {
+                padding: 1.1rem;
+            }
+
+            .client {
+                padding: 0.8rem 0.6rem;
+            }
+
+            .client__name {
+                font-size: 0.92rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .header__container {
+                padding-top: 1rem;
+                padding-bottom: 1.1rem;
+            }
+
+            .sorteo {
+                padding: 1.25rem;
+            }
+
+            .client {
+                padding: 0.85rem 0.7rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__container">
+            <h1 class="header__title">
+                <span class="header__dot" aria-hidden="true"></span>
+                Clientes de los sorteos
+            </h1>
+            <div class="filter__wrap">
+                <svg class="filter__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input class="filter__input" type="text" placeholder="Buscar por nombre o número..." id="filter_input"
+                    autocomplete="off" aria-label="Buscar clientes por nombre o número">
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="message" aria-label="Mensaje a enviar">
+            <div class="message__head">
+                <label class="message__label" for="message_textarea">Mensaje para enviar</label>
+                <span class="message__count" id="message_count">0 caracteres</span>
+            </div>
+            <textarea class="message__textarea" id="message_textarea"
+                placeholder="Escribe aquí el mensaje que se enviará a cada cliente por WhatsApp..."></textarea>
+            <p class="message__hint">Este mensaje se enviará al presionar «Enviar» en cada cliente.</p>
+        </section>
+
+        <section class="stats" aria-label="Resumen de envíos">
+            <div class="stats__item">
+                <div class="stats__value" id="stats_total">0</div>
+                <div class="stats__label">Total</div>
+            </div>
+            <div class="stats__item">
+                <div class="stats__value" id="stats_sent">0</div>
+                <div class="stats__label">Enviados</div>
+            </div>
+            <div class="stats__item">
+                <div class="stats__value" id="stats_pending">0</div>
+                <div class="stats__label">Pendientes</div>
+            </div>
+        </section>
+
+        <div class="empty" id="empty_state">No se encontraron clientes con ese criterio.</div>
+    </main>
+
+    <script>
+        (function () {
+            "use strict";
+
+            // ===== Datos hardcodeados =====
+            const sorteos = [
+                {
+                    id: 1,
+                    titulo: "Sorteo Cena para 4 - Trattoria La Nonna",
+                    clientes: [
+                        { nombre: "Ana Martínez", telefono: "3815411429" },
+                        { nombre: "Bruno Díaz", telefono: "3812345678" },
+                        { nombre: "Carla Sosa", telefono: "3816789012" },
+                        { nombre: "Diego Fernández", telefono: "3813456789" },
+                        { nombre: "Elena Ruiz", telefono: "3818765432" },
+                        { nombre: "Federico López", telefono: "3815678901" },
+                        { nombre: "Gabriela Torres", telefono: "3819876543" },
+                        { nombre: "Hernán Gómez", telefono: "3812109876" },
+                        { nombre: "Isabel Vargas", telefono: "3814567890" },
+                        { nombre: "Juan Pérez", telefono: "3819012345" }
+                    ]
+                },
+                {
+                    id: 2,
+                    titulo: "Sorteo Cena para 4 - Parrilla El Fogón",
+                    clientes: [
+                        { nombre: "Lucía Méndez", telefono: "3811122334" },
+                        { nombre: "Manuel Castro", telefono: "3812233445" },
+                        { nombre: "Natalia Ortiz", telefono: "3813344556" },
+                        { nombre: "Pablo Silva", telefono: "3814455667" },
+                        { nombre: "Paula Ríos", telefono: "3815566778" },
+                        { nombre: "Ricardo Vega", telefono: "3816677889" },
+                        { nombre: "Sofía Castro", telefono: "3817788990" },
+                        { nombre: "Tomás Herrera", telefono: "3818899001" },
+                        { nombre: "Valentina Cruz", telefono: "3819900112" },
+                        { nombre: "Walter Ávila", telefono: "3811011223" }
+                    ]
+                },
+                {
+                    id: 3,
+                    titulo: "Sorteo Cena para 4 - Sushi Bar Osaka",
+                    clientes: [
+                        { nombre: "Ximena Navarro", telefono: "3812022334" },
+                        { nombre: "Yésica Ramírez", telefono: "3813033445" },
+                        { nombre: "Zulema Ferrer", telefono: "3814044556" },
+                        { nombre: "Andrés Rojas", telefono: "3815055667" },
+                        { nombre: "Beatriz Luna", telefono: "3816066778" },
+                        { nombre: "Carlos Iglesias", telefono: "3817077889" },
+                        { nombre: "Daniela Páez", telefono: "3818088990" },
+                        { nombre: "Esteban Mendoza", telefono: "3819099001" },
+                        { nombre: "Florencia Núñez", telefono: "3810101112" },
+                        { nombre: "Gonzalo Aguilar", telefono: "3811211223" }
+                    ]
+                }
+            ];
+
+            // ===== Referencias DOM =====
+            const main = document.querySelector(".main");
+            const messageTextarea = document.getElementById("message_textarea");
+            const messageCount = document.getElementById("message_count");
+            const filterInput = document.getElementById("filter_input");
+            const emptyState = document.getElementById("empty_state");
+            const statsTotal = document.getElementById("stats_total");
+            const statsSent = document.getElementById("stats_sent");
+            const statsPending = document.getElementById("stats_pending");
+
+            // ===== SessionStorage helpers =====
+            function getSentKey(phone) {
+                return "wa_sent_" + phone;
+            }
+            function isSent(phone) {
+                try {
+                    return sessionStorage.getItem(getSentKey(phone)) === "1";
+                } catch (e) {
+                    return false;
+                }
+            }
+            function markSent(phone) {
+                try {
+                    sessionStorage.setItem(getSentKey(phone), "1");
+                } catch (e) {
+                    /* noop */
+                }
+            }
+
+            // ===== Render dinámico de sorteos =====
+            function renderSorteos() {
+                const frag = document.createDocumentFragment();
+
+                sorteos.forEach(function (sorteo, sorteoIdx) {
+                    const section = document.createElement("section");
+                    section.className = "sorteo";
+                    section.dataset.sorteoId = String(sorteo.id);
+                    section.style.animationDelay = (sorteoIdx * 0.06) + "s";
+
+                    const head = document.createElement("div");
+                    head.className = "sorteo__head";
+
+                    const badge = document.createElement("span");
+                    badge.className = "sorteo__badge";
+                    badge.setAttribute("aria-hidden", "true");
+
+                    const title = document.createElement("h2");
+                    title.className = "sorteo__title";
+                    title.textContent = sorteo.titulo;
+
+                    head.appendChild(badge);
+                    head.appendChild(title);
+                    section.appendChild(head);
+
+                    const list = document.createElement("div");
+                    list.className = "sorteo__list";
+
+                    sorteo.clientes.forEach(function (cliente) {
+                        const item = document.createElement("div");
+                        item.className = "client";
+                        item.dataset.phone = cliente.telefono;
+                        item.dataset.name = cliente.nombre.toLowerCase();
+
+                        if (isSent(cliente.telefono)) {
+                            item.classList.add("client_sent");
+                        }
+
+                        const info = document.createElement("div");
+                        info.className = "client__info";
+
+                        const name = document.createElement("span");
+                        name.className = "client__name";
+                        name.textContent = cliente.nombre;
+
+                        const phone = document.createElement("span");
+                        phone.className = "client__phone";
+                        phone.textContent = cliente.telefono;
+
+                        info.appendChild(name);
+                        info.appendChild(phone);
+
+                        const button = document.createElement("button");
+                        button.className = "client__button";
+                        button.type = "button";
+                        button.dataset.phone = cliente.telefono;
+                        if (isSent(cliente.telefono)) {
+                            button.classList.add("client__button_sent");
+                            button.textContent = "Enviado ✓";
+                            button.setAttribute("aria-label", "Mensaje ya enviado a " + cliente.nombre);
+                        } else {
+                            button.textContent = "Enviar";
+                            button.setAttribute("aria-label", "Enviar mensaje por WhatsApp a " + cliente.nombre);
+                        }
+                        button.addEventListener("click", function () {
+                            handleSend(cliente, item, button);
+                        });
+
+                        item.appendChild(info);
+                        item.appendChild(button);
+                        list.appendChild(item);
+                    });
+
+                    section.appendChild(list);
+                    frag.appendChild(section);
+                });
+
+                main.insertBefore(frag, emptyState);
+                updateStats();
+            }
+
+            // ===== Enviar por WhatsApp =====
+            function handleSend(cliente, item, button) {
+                const message = messageTextarea.value.trim();
+                if (!message) {
+                    // Feedback: shake del textarea
+                    messageTextarea.classList.remove("message__textarea_shake");
+                    void messageTextarea.offsetWidth; // forzar reflow
+                    messageTextarea.classList.add("message__textarea_shake");
+                    messageTextarea.focus();
+                    setTimeout(function () {
+                        messageTextarea.classList.remove("message__textarea_shake");
+                    }, 400);
+                    return;
+                }
+                const fullPhone = "54" + cliente.telefono;
+                const url = "https://wa.me/" + fullPhone + "?text=" + encodeURIComponent(message);
+                window.open(url, "_blank", "noopener");
+                markSent(cliente.telefono);
+                button.classList.add("client__button_sent");
+                button.textContent = "Enviado ✓";
+                button.setAttribute("aria-label", "Mensaje ya enviado a " + cliente.nombre);
+                item.classList.add("client_sent");
+                updateStats();
+            }
+
+            // ===== Stats =====
+            function updateStats() {
+                const allClients = main.querySelectorAll(".client");
+                const sentClients = main.querySelectorAll(".client_sent");
+                const total = allClients.length;
+                const sent = sentClients.length;
+                statsTotal.textContent = String(total);
+                statsSent.textContent = String(sent);
+                statsPending.textContent = String(total - sent);
+            }
+
+            // ===== Filtro por nombre o número =====
+            function applyFilter() {
+                const query = filterInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+                const sections = main.querySelectorAll(".sorteo");
+
+                main.querySelectorAll(".client").forEach(function (item) {
+                    const name = item.dataset.name || "";
+                    const phone = item.dataset.phone || "";
+                    const match = !query || name.indexOf(query) !== -1 || phone.indexOf(query) !== -1;
+                    if (match) {
+                        item.classList.remove("client_hidden");
+                        visibleCount++;
+                    } else {
+                        item.classList.add("client_hidden");
+                    }
+                });
+
+                // Ocultar secciones sin resultados visibles
+                sections.forEach(function (section) {
+                    const visibleIn = section.querySelectorAll(".client:not(.client_hidden)").length;
+                    section.style.display = visibleIn === 0 ? "none" : "";
+                });
+
+                if (visibleCount === 0) {
+                    emptyState.classList.add("empty_show");
+                } else {
+                    emptyState.classList.remove("empty_show");
+                }
+            }
+
+            // ===== Contador de caracteres =====
+            function updateCount() {
+                const len = messageTextarea.value.length;
+                messageCount.textContent = len + (len === 1 ? " carácter" : " caracteres");
+            }
+
+            // ===== Eventos =====
+            messageTextarea.addEventListener("input", updateCount);
+            filterInput.addEventListener("input", applyFilter);
+
+            // ===== Init =====
+            renderSorteos();
+            updateCount();
+        })();
+    </script>
+</body>
+
+</html>
