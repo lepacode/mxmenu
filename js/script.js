@@ -4,21 +4,21 @@ var menuData = {
         Promociones: [
             {
                 nombre: 'Combo Tortero',
-                descripcion: 'Torta a elección con papas y refresco. La mejor combinación para tu antojo.',
+                descripcion: 'Torta a elección con papas fritas y refresco. La mejor combinación para tu antojo.',
                 precio: '179',
                 imagen: 'assets/mx/promociones/combo-tortero.webp',
                 esPromo: true
             },
             {
                 nombre: 'Combo Taquero',
-                descripcion: 'Cinco tacos a elección acompañados de refresco. Perfecto para compartir.',
+                descripcion: 'Cinco tacos a elección acompañados de refresco. Perfecto para compartir con amigos.',
                 precio: '229',
                 imagen: 'assets/mx/promociones/combo-taquero.webp',
                 esPromo: true
             },
             {
                 nombre: 'Antojo Familiar',
-                descripcion: 'Combinación para cuatro con tacos, tortas, papas y guacamole.',
+                descripcion: 'Combinación para cuatro personas con tacos, tortas, papas, guacamole y refrescos.',
                 precio: '429',
                 imagen: 'assets/mx/promociones/antojo-familiar.webp',
                 esPromo: true
@@ -27,37 +27,37 @@ var menuData = {
         Tacos: [
             {
                 nombre: 'Tacos al Pastor',
-                descripcion: 'Cerdo adobado con piña asada, cebolla y cilantro en tortilla de maíz.',
+                descripcion: 'Cerdo adobado con piña asada, cebolla y cilantro en tortilla de maíz. Clásico mexicano.',
                 precio: '139',
                 imagen: 'assets/mx/tacos/tacos-al-pastor.webp'
             },
             {
                 nombre: 'Tacos de Asada',
-                descripcion: 'Bistec de res asado a la parrilla con cebolla y cilantro.',
+                descripcion: 'Bistec de res asado a la parrilla con cebolla y cilantro. Sabor ahumado inigualable.',
                 precio: '159',
                 imagen: 'assets/mx/tacos/tacos-de-asada-bistec.webp'
             },
             {
                 nombre: 'Tacos de Carnitas',
-                descripcion: 'Cerdo confitado en manteca, suave y dorado con cebolla y salsa.',
+                descripcion: 'Cerdo confitado en manteca, suave por dentro y dorado por fuera. Acompañado de salsa.',
                 precio: '139',
                 imagen: 'assets/mx/tacos/tacos-de-carnitas.webp'
             },
             {
                 nombre: 'Tacos de Pollo',
-                descripcion: 'Pechuga de pollo marinada y asada con verduras frescas.',
+                descripcion: 'Pechuga de pollo marinada y asada con verduras frescas y salsa verde.',
                 precio: '129',
                 imagen: 'assets/mx/tacos/tacos-de-pollo.webp'
             },
             {
                 nombre: 'Tacos de Chorizo',
-                descripcion: 'Chorizo artesanal dorado con cebolla y salsa verde.',
+                descripcion: 'Chorizo artesanal dorado con cebolla y salsa verde. Un sabor intenso y delicioso.',
                 precio: '129',
                 imagen: 'assets/mx/tacos/tacos-de-chorizo.webp'
             },
             {
                 nombre: 'Tacos de Suadero',
-                descripcion: 'Carne suave tipo brisket, dorada y jugosa con cebolla y cilantro.',
+                descripcion: 'Carne suave tipo brisket, dorada y jugosa con cebolla, cilantro y salsa al gusto.',
                 precio: '149',
                 imagen: 'assets/mx/tacos/tacos-de-suadero.webp'
             }
@@ -65,37 +65,37 @@ var menuData = {
         Tortas: [
             {
                 nombre: 'Torta de Jamón',
-                descripcion: 'Jamón, queso, frijoles refritos, aguacate y mayonesa en telera crujiente.',
+                descripcion: 'Jamón, queso, frijoles refritos, aguacate y mayonesa en telera crujiente. Simple y sabrosa.',
                 precio: '99',
                 imagen: 'assets/mx/tortas/torta-de-jamón.webp'
             },
             {
                 nombre: 'Torta de Salchicha',
-                descripcion: 'Salchicha asada, frijoles, queso derretido y jalapeño en pan telera.',
+                descripcion: 'Salchicha asada, frijoles, queso derretido y jalapeño en pan telera. Clásica mexicana.',
                 precio: '99',
                 imagen: 'assets/mx/tortas/torta-de-salchicha.webp'
             },
             {
                 nombre: 'Torta de Pierna',
-                descripcion: 'Pierna de cerdo adobada con verduras frescas y queso.',
+                descripcion: 'Pierna de cerdo adobada con verduras frescas y queso derretido. Perfecta para el antojo.',
                 precio: '119',
                 imagen: 'assets/mx/tortas/torta-de-pierna.webp'
             },
             {
                 nombre: 'Torta de Pastor',
-                descripcion: 'Pastor con piña asada, queso, frijoles y aguacate en pan.',
+                descripcion: 'Pastor con piña asada, queso gratinado, frijoles y aguacate en pan tostado. Imperdible.',
                 precio: '129',
                 imagen: 'assets/mx/tortas/torta-de-pastor.webp'
             },
             {
                 nombre: 'Torta de Cubana',
-                descripcion: 'Jamón, salchicha, pierna, pastor, queso y huevo en un solo pan.',
+                descripcion: 'Jamón, salchicha, pierna, pastor, queso y huevo. La más completa y abundante del menú.',
                 precio: '149',
                 imagen: 'assets/mx/tortas/torta-de-cubana.webp'
             },
             {
                 nombre: 'Torta de Milanesa',
-                descripcion: 'Milanesa de res o pollo empanizada con verduras y queso.',
+                descripcion: 'Milanesa de res o pollo empanizada con verduras frescas y queso derretido.',
                 precio: '129',
                 imagen: 'assets/mx/tortas/torta-de-milanesa-res-pollo.webp'
             }
@@ -103,37 +103,37 @@ var menuData = {
         Quesadillas: [
             {
                 nombre: 'Quesadilla de Queso',
-                descripcion: 'Tortilla de maíz rellena de queso derretido con salsa.',
+                descripcion: 'Tortilla de maíz rellena de queso derretido, servida con salsa roja o verde.',
                 precio: '69',
                 imagen: 'assets/mx/quesadillas/quesadilla-de-queso.webp'
             },
             {
                 nombre: 'Quesadilla de Tinga',
-                descripcion: 'Tinga de pollo deshebrada con queso fundido y crema.',
+                descripcion: 'Tinga de pollo deshebrada con queso fundido y crema. Sabor tradicional mexicano.',
                 precio: '79',
                 imagen: 'assets/mx/quesadillas/quesadilla-de-tinga-de-pollo.webp'
             },
             {
                 nombre: 'Quesadilla de Chicharrón',
-                descripcion: 'Chicharrón prensado con queso y salsa verde.',
+                descripcion: 'Chicharrón prensado con queso y salsa verde. Textura y sabor únicos.',
                 precio: '79',
                 imagen: 'assets/mx/quesadillas/quesadilla-de-chicharron-prensado.webp'
             },
             {
                 nombre: 'Quesadilla de Papa con Chorizo',
-                descripcion: 'Puré de papa con chorizo y queso gratinado.',
+                descripcion: 'Puré de papa con chorizo y queso gratinado. Una combinación clásica e irresistible.',
                 precio: '79',
                 imagen: 'assets/mx/quesadillas/quesadilla-de-papa-con-chorizo.webp'
             },
             {
                 nombre: 'Quesadilla de Flor de Calabaza',
-                descripcion: 'Flor de calabaza con queso, crema y epazote fresco.',
+                descripcion: 'Flor de calabaza con queso, crema y epazote fresco. Ligera y llena de sabor.',
                 precio: '85',
                 imagen: 'assets/mx/quesadillas/quesadilla-de-flor-de-calabaza.webp'
             },
             {
                 nombre: 'Quesadilla de Huitlacoche',
-                descripcion: 'Huitlacoche con queso y cilantro en tortilla crujiente.',
+                descripcion: 'Huitlacoche con queso y cilantro en tortilla crujiente. Delicadeza prehispánica.',
                 precio: '95',
                 imagen: 'assets/mx/quesadillas/quesadilla-de-huitlacoche.webp'
             }
@@ -141,37 +141,37 @@ var menuData = {
         Antojitos: [
             {
                 nombre: 'Gorditas de Chicharrón',
-                descripcion: 'Disco de masa de maíz relleno de chicharrón prensado.',
+                descripcion: 'Disco de masa de maíz relleno de chicharrón prensado, crema y salsa. Crujiente por fuera.',
                 precio: '59',
                 imagen: 'assets/mx/antojitos/gorditas-de-Chicharrón.webp'
             },
             {
                 nombre: 'Sopes',
-                descripcion: 'Masa gruesa con frijoles, crema, queso y salsa.',
+                descripcion: 'Masa gruesa con frijoles refritos, crema, queso rallado y salsa verde o roja.',
                 precio: '55',
                 imagen: 'assets/mx/antojitos/sopes (frijol, crema, queso, salsa).webp'
             },
             {
                 nombre: 'Pambazos',
-                descripcion: 'Pan bañado en salsa de guajillo relleno de papa con chorizo.',
+                descripcion: 'Pan bañado en salsa de guajillo relleno de papa con chorizo, lechuga, crema y queso.',
                 precio: '59',
                 imagen: 'assets/mx/antojitos/pambazos (torta-de-papa-con-chorizo-bañada-en-salsa).webp'
             },
             {
                 nombre: 'Tostadas de Tinga',
-                descripcion: 'Tostada crujiente con tinga de pollo o res y crema.',
+                descripcion: 'Tostada crujiente con tinga de pollo o res, crema, queso y verduras frescas.',
                 precio: '55',
                 imagen: 'assets/mx/antojitos/tostadas-de-tinga-o-pollo.webp'
             },
             {
                 nombre: 'Tlacoyos',
-                descripcion: 'Masa de maíz azul rellena de frijol, haba o nopales.',
+                descripcion: 'Masa de maíz azul rellena de frijol, haba o nopales con crema y salsa. Artesanal.',
                 precio: '65',
                 imagen: 'assets/mx/antojitos/tlacoyos-(frijol, haba, nopales).webp'
             },
             {
                 nombre: 'Huaraches',
-                descripcion: 'Base alargada de masa con carne y verduras frescas.',
+                descripcion: 'Base alargada de masa con carne, frijoles, crema, queso y verduras frescas.',
                 precio: '79',
                 imagen: 'assets/mx/antojitos/huaraches-(base-alargada-con-carne).webp'
             }
@@ -179,37 +179,37 @@ var menuData = {
         'Botanas y Compartir': [
             {
                 nombre: 'Guacamole con Totopos',
-                descripcion: 'Guacamole fresco acompañado de totopos crujientes.',
+                descripcion: 'Guacamole fresco con totopos crujientes. El acompañante perfecto para compartir.',
                 precio: '99',
                 imagen: 'assets/mx/botanas-y-compartir/guacamole-con-totopos.webp'
             },
             {
                 nombre: 'Nachos con Carne o Pollo',
-                descripcion: 'Nachos bañados en queso con carne o pollo.',
+                descripcion: 'Nachos bañados en queso con carne o pollo servidos con crema y guacamole.',
                 precio: '139',
                 imagen: 'assets/mx/botanas-y-compartir/nachos-con-carne-pollo.webp'
             },
             {
                 nombre: 'Pico de Gallo',
-                descripcion: 'Tomate, cebolla, cilantro y chile serrano fresco.',
+                descripcion: 'Tomate, cebolla, cilantro y chile serrano fresco. Acompañado de totopos.',
                 precio: '79',
                 imagen: 'assets/mx/botanas-y-compartir/pico-de-gallo.webp'
             },
             {
                 nombre: 'Papas a la Mexicana',
-                descripcion: 'Papas gajo salteadas con chorizo y queso gratinado.',
+                descripcion: 'Papas gajo salteadas con chorizo, queso gratinado y un toque de crema.',
                 precio: '99',
                 imagen: 'assets/mx/botanas-y-compartir/papas-a-la-mexicana.webp'
             },
             {
                 nombre: 'Queso Fundido con Chorizo',
-                descripcion: 'Queso gratinado con chorizo y tortillas de harina.',
+                descripcion: 'Queso gratinado con chorizo servido con tortillas de harina. Ideal para compartir.',
                 precio: '129',
                 imagen: 'assets/mx/botanas-y-compartir/queso-fundido-con-chorizo.webp'
             },
             {
                 nombre: 'Molcajete',
-                descripcion: 'Salsa, queso, chorizo y nopales servidos en molcajete.',
+                descripcion: 'Salsa, queso, chorizo y nopales servidos en molcajete de piedra volcánica.',
                 precio: '179',
                 imagen: 'assets/mx/botanas-y-compartir/molcajete-(salsa-queso-chorizo-nopales).webp'
             }
@@ -217,37 +217,37 @@ var menuData = {
         'Sopas y Caldos': [
             {
                 nombre: 'Caldo de Res',
-                descripcion: 'Caldo de res con verduras frescas y garbanzos.',
+                descripcion: 'Caldo de res con verduras frescas y garbanzos. Reconfortante y lleno de sabor.',
                 precio: '149',
                 imagen: 'assets/mx/sopas-y-caldos/caldo-de-res.webp'
             },
             {
                 nombre: 'Pozole',
-                descripcion: 'Pozole rojo, verde o blanco con todos los complementos.',
+                descripcion: 'Pozole rojo, verde o blanco con todos los complementos. Tradicional mexicano.',
                 precio: '159',
                 imagen: 'assets/mx/sopas-y-caldos/pozole-(rojo-verde-blanco).webp'
             },
             {
                 nombre: 'Consomé de Pollo',
-                descripcion: 'Consomé de pollo con arroz y verduras.',
+                descripcion: 'Consomé de pollo con arroz y verduras. Perfecto para cualquier ocasión.',
                 precio: '89',
                 imagen: 'assets/mx/sopas-y-caldos/consome-de-pollo-(con-arroz-y-verdura).webp'
             },
             {
                 nombre: 'Sopa de Tortilla',
-                descripcion: 'Sopa con tiras de tortilla, chile pasilla y crema.',
+                descripcion: 'Sopa con tiras de tortilla, chile pasilla, crema y aguacate. Un clásico mexicano.',
                 precio: '79',
                 imagen: 'assets/mx/sopas-y-caldos/sopa-de-tortilla.webp'
             },
             {
                 nombre: 'Sopa de Fideo',
-                descripcion: 'Fideos en caldillo de jitomate con crema.',
+                descripcion: 'Fideos en caldillo de jitomate con crema. Sencilla, reconfortante y deliciosa.',
                 precio: '69',
                 imagen: 'assets/mx/sopas-y-caldos/sopa-de-fideo.webp'
             },
             {
                 nombre: 'Menudo',
-                descripcion: 'Pancita de res en caldo rojo con orégano y limón.',
+                descripcion: 'Pancita de res en caldo rojo con orégano, limón y cebolla. Remedio tradicional.',
                 precio: '149',
                 imagen: 'assets/mx/sopas-y-caldos/sopa-de-menudo-pancita.webp'
             }
@@ -255,37 +255,37 @@ var menuData = {
         Guarniciones: [
             {
                 nombre: 'Arroz Rojo',
-                descripcion: 'Arroz rojo estilo mexicano con verduras.',
+                descripcion: 'Arroz rojo estilo mexicano con verduras. El acompañante clásico de cualquier platillo.',
                 precio: '49',
                 imagen: 'assets/mx/guarniciones/arroz-rojo.webp'
             },
             {
                 nombre: 'Frijoles Refritos',
-                descripcion: 'Frijoles refritos con queso derretido.',
+                descripcion: 'Frijoles refritos con queso derretido. Cremosos y llenos de sabor tradicional.',
                 precio: '49',
                 imagen: 'assets/mx/guarniciones/frijoles-refritos.webp'
             },
             {
                 nombre: 'Frijoles de la Olla',
-                descripcion: 'Frijoles cocidos con epazote.',
+                descripcion: 'Frijoles cocidos con epazote. Simples, naturales y reconfortantes como en casa.',
                 precio: '45',
                 imagen: 'assets/mx/guarniciones/frijoles-de-la-olla.webp'
             },
             {
                 nombre: 'Frijoles Charros',
-                descripcion: 'Frijoles con tocino, chorizo y chile.',
+                descripcion: 'Frijoles con tocino, chorizo y chile. Espesos, ahumados y con un toque picante.',
                 precio: '59',
                 imagen: 'assets/mx/guarniciones/frijoles-charros.webp'
             },
             {
                 nombre: 'Chiles Toreados',
-                descripcion: 'Chiles asados con cebolla y limón.',
+                descripcion: 'Chiles asados con cebolla y limón. El toque perfecto para acompañar tus tacos.',
                 precio: '55',
                 imagen: 'assets/mx/guarniciones/chiles-toreados.webp'
             },
             {
                 nombre: 'Nopales Asados',
-                descripcion: 'Nopales asados con limón y sal.',
+                descripcion: 'Nopales asados con limón y sal. Saludables y deliciosos, ideales como guarnición.',
                 precio: '49',
                 imagen: 'assets/mx/guarniciones/nopales-asados.webp'
             }
@@ -293,37 +293,37 @@ var menuData = {
         Postres: [
             {
                 nombre: 'Arroz con Leche',
-                descripcion: 'Arroz cremoso con canela y pasas.',
+                descripcion: 'Arroz cremoso con canela y pasas. El postre tradicional mexicano que nunca falla.',
                 precio: '55',
                 imagen: 'assets/mx/postres/arroz-con-leche.webp'
             },
             {
                 nombre: 'Buñuelos',
-                descripcion: 'Masa frita crujiente espolvoreada con azúcar.',
+                descripcion: 'Masa frita crujiente espolvoreada con azúcar y canela. Dulce y tradicional.',
                 precio: '55',
                 imagen: 'assets/mx/postres/buñuelos.webp'
             },
             {
                 nombre: 'Churros con Cajeta',
-                descripcion: 'Churros dorados bañados en cajeta.',
+                descripcion: 'Churros dorados bañados en cajeta. El antojo dulce perfecto para cualquier momento.',
                 precio: '65',
                 imagen: 'assets/mx/postres/churros-con-cajeta-o-chocolate-.webp'
             },
             {
                 nombre: 'Flan Napolitano',
-                descripcion: 'Flan cremoso bañado en caramelo.',
+                descripcion: 'Flan cremoso bañado en caramelo. Suave, dulce y absolutamente irresistible.',
                 precio: '69',
                 imagen: 'assets/mx/postres/flan-napolitano.webp'
             },
             {
                 nombre: 'Jericalla',
-                descripcion: 'Postre horneado de leche, canela y vainilla.',
+                descripcion: 'Postre horneado de leche, canela y vainilla. Cremoso y con un toque de canela.',
                 precio: '65',
                 imagen: 'assets/mx/postres/jericalla.webp'
             },
             {
                 nombre: 'Pastel de Tres Leches',
-                descripcion: 'Bizcocho bañado en tres leches con crema batida.',
+                descripcion: 'Bizcocho bañado en tres leches con crema batida. El favorito de todos.',
                 precio: '79',
                 imagen: 'assets/mx/postres/pastel-de-tres-leches.webp'
             }
@@ -331,37 +331,37 @@ var menuData = {
         'Bebidas sin Alcohol': [
             {
                 nombre: 'Agua de Horchata',
-                descripcion: 'Agua de arroz con canela y vainilla.',
+                descripcion: 'Agua de arroz con canela y vainilla. Refrescante y tradicional, endulzada naturalmente.',
                 precio: '35',
                 imagen: 'assets/mx/bebidas-sin-alcohol/aggua-de-horchata.webp'
             },
             {
                 nombre: 'Agua de Jamaica',
-                descripcion: 'Agua de flor de jamaica, refrescante.',
+                descripcion: 'Agua de flor de jamaica, refrescante y ligeramente ácida. Ideal para el calor.',
                 precio: '35',
                 imagen: 'assets/mx/bebidas-sin-alcohol/agua-de-jamaica.webp'
             },
             {
                 nombre: 'Agua de Tamarindo',
-                descripcion: 'Agua fresca de tamarindo natural.',
+                descripcion: 'Agua fresca de tamarindo natural. Dulce, ácida y súper refrescante.',
                 precio: '35',
                 imagen: 'assets/mx/bebidas-sin-alcohol/agua-de-tamarindo.webp'
             },
             {
                 nombre: 'Coca-Cola',
-                descripcion: 'Coca-Cola clásica en vidrio o lata.',
+                descripcion: 'Coca-Cola clásica en vidrio o lata. La acompañante perfecta para tu comida.',
                 precio: '35',
                 imagen: 'assets/mx/bebidas-sin-alcohol/coca-cola(vidrio-lata).webp'
             },
             {
                 nombre: 'Sidral Mundet',
-                descripcion: 'Sidra de manzana burbujeante.',
+                descripcion: 'Sidra de manzana burbujeante. Dulce y refrescante, ideal para toda la familia.',
                 precio: '35',
                 imagen: 'assets/mx/bebidas-sin-alcohol/sidral-mundet(manzana).webp'
             },
             {
                 nombre: 'Sangría Sin Alcohol',
-                descripcion: 'Sangría de frutas sin alcohol.',
+                descripcion: 'Sangría de frutas sin alcohol. Fresca, afrutada y perfecta para acompañar.',
                 precio: '39',
                 imagen: 'assets/mx/bebidas-sin-alcohol/sangria(sin-alcohol).webp'
             }
@@ -369,73 +369,73 @@ var menuData = {
         'Bebidas con Alcohol': [
             {
                 nombre: 'Cerveza Corona',
-                descripcion: 'Cerveza clara, ligera y refrescante.',
+                descripcion: 'Cerveza clara, ligera y refrescante. La cerveza mexicana más famosa del mundo.',
                 precio: '59',
                 imagen: 'assets/mx/bebidas-con-alcohol/cerveza-corona.webp'
             },
             {
                 nombre: 'Cerveza Victoria',
-                descripcion: 'Cerveza oscura estilo Viena.',
+                descripcion: 'Cerveza oscura estilo Viena. Suave, tostada y con carácter mexicano.',
                 precio: '59',
                 imagen: 'assets/mx/bebidas-con-alcohol/cerveza-victoria.webp'
             },
             {
                 nombre: 'Cerveza Modelo Especial',
-                descripcion: 'Lager premium dorada y suave.',
+                descripcion: 'Lager premium dorada y suave. Un clásico de la cerveza mexicana.',
                 precio: '59',
                 imagen: 'assets/mx/bebidas-con-alcohol/cerveza-modelo-especial.webp'
             },
             {
                 nombre: 'Cerveza Indio',
-                descripcion: 'Cerveza oscura con sabor a caramelo.',
+                descripcion: 'Cerveza oscura con sabor a caramelo y notas tostadas. Única y tradicional.',
                 precio: '59',
                 imagen: 'assets/mx/bebidas-con-alcohol/cerveza-indio-dos-equis(xx).webp'
             },
             {
                 nombre: 'Chelada',
-                descripcion: 'Cerveza preparada con limón y sal.',
+                descripcion: 'Cerveza preparada con limón y sal. Refrescante y fácil de tomar.',
                 precio: '69',
                 imagen: 'assets/mx/bebidas-con-alcohol/chelada(cerveza-limon-sal).webp'
             },
             {
                 nombre: 'Michelada Clásica',
-                descripcion: 'Cerveza con clamato, limón y especias.',
+                descripcion: 'Cerveza con clamato, limón y especias. La combinación perfecta y refrescante.',
                 precio: '79',
                 imagen: 'assets/mx/bebidas-con-alcohol/michelada-clasica.webp'
             },
             {
                 nombre: 'Paloma',
-                descripcion: 'Tequila con refresco de toronja y limón.',
+                descripcion: 'Tequila con refresco de toronja y limón. La coctelería mexicana por excelencia.',
                 precio: '99',
                 imagen: 'assets/mx/bebidas-con-alcohol/paloma-(tequila-+-toronja-+-limón).webp'
             },
             {
                 nombre: 'Margarita Clásica',
-                descripcion: 'Margarita frozen o clásica con sal.',
+                descripcion: 'Margarita frozen o clásica con sal. El cóctel mexicano más internacional.',
                 precio: '119',
                 imagen: 'assets/mx/bebidas-con-alcohol/margarita-clasica-Frozen.webp'
             },
             {
                 nombre: 'Cantarito',
-                descripcion: 'Tequila con cítricos en vaso de barro.',
+                descripcion: 'Tequila con cítricos servido en vaso de barro. Tradicional y refrescante.',
                 precio: '109',
                 imagen: 'assets/mx/bebidas-con-alcohol/cantarito-(tequila+citricos-en-vaso-de-barro).webp'
             },
             {
                 nombre: 'Charro Negro',
-                descripcion: 'Cerveza oscura con tequila.',
+                descripcion: 'Cerveza oscura con tequila. La combinación perfecta entre cerveza y destilado.',
                 precio: '89',
                 imagen: 'assets/mx/bebidas-con-alcohol/charro-negro-(cerveza-oscura + tequila).webp'
             },
             {
                 nombre: 'Tequila',
-                descripcion: 'Tequila blanco, reposado o añejo.',
+                descripcion: 'Tequila blanco, reposado o añejo. Puro sabor de México en cada caballito.',
                 precio: '99',
                 imagen: 'assets/mx/bebidas-con-alcohol/tequila-blanco-reposado-añejo.webp'
             },
             {
                 nombre: 'Mezcal',
-                descripcion: 'Mezcal joven o reposado ahumado.',
+                descripcion: 'Mezcal joven o reposado ahumado. El alma de México en cada sorbo.',
                 precio: '119',
                 imagen: 'assets/mx/bebidas-con-alcohol/mezcal-joven-reposado.webp'
             }
